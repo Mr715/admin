@@ -45,6 +45,7 @@ import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "../store/index";
 import LText from "../components/LText.vue";
+import LImage from "../components/LImage.vue";
 import { defaultTextTemplates } from "@/defaultTemplates";
 import ComponentsList from "../components/ComponentsList.vue";
 import EditWrapper from "../components/EditorWrapper.vue";
@@ -57,6 +58,7 @@ export default defineComponent({
     ComponentsList,
     EditWrapper,
     PropsTable,
+    LImage,
   },
   setup() {
     const store = useStore<GlobalDataProps>();

@@ -8,7 +8,7 @@ export interface EditorProps {
   currentElement: string;
 }
 
-interface ComponentsData {
+export interface ComponentsData {
   props: { [key: string]: any };
   id: string;
   name: string;
@@ -58,14 +58,24 @@ const editor: Module<EditorProps, GlobalDataProps> = {
     currentElement: "",
   },
   mutations: {
-    addComponent(state, props) {
-      const newComponent: ComponentsData = {
-        id: uuidv4(),
-        name: "l-text",
-        props,
-      };
-      state.components.push(newComponent);
+    // addComponent(state, props) {
+    //   const newComponent: ComponentsData = {
+    //     id: uuidv4(),
+    //     name: "l-text",
+    //     props: Object.assign({}, props),
+    //   };
+    //   state.components.push(newComponent);
+    //   console.log(state.components, "components");
+    // },
+    addComponent(state, component: ComponentsData) {
+      // const newComponent: ComponentsData = {
+      //   id: uuidv4(),
+      //   name: "l-text",
+      //   props: Object.assign({}, props),
+      // };
+      state.components.push(component);
     },
+
     setActive(state, props) {
       state.currentElement = props;
     },

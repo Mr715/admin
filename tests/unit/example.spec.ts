@@ -1,44 +1,36 @@
-import { shallowMount, mount } from "@vue/test-utils";
+import { shallowMount, mount, VueWrapper } from "@vue/test-utils";
 import HelloWorld from "@/components/HelloWorld.vue";
 import hello from "../../src/components/hi.vue";
+import flushPromises from "flush-promises";
 import axios from "axios";
 
 jest.mock("axios");
 
 //保留axios方法 并且有jest的方法
 const mockAxios = axios as jest.Mocked<typeof axios>;
-
+let wrapper: VueWrapper<any>;
+const msg = "new message";
 describe("HelloWorld.vue", () => {
   //beforeAll
   //
-
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
+  beforeAll(() => {
+    wrapper = shallowMount(HelloWorld, {
       props: { msg },
     });
-    // console.log(wrapper.html());
-    // console.log(wrapper.get("div").text());
+  });
 
+  it("renders props.msg when passed", () => {
     console.log(wrapper.getComponent(hello));
 
     expect(wrapper.text()).toMatch(msg);
   });
   //async  await 同步
   it("clicking button", async () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
     await wrapper.get("button").trigger("click");
     expect(wrapper.get("button").text()).toBe("2");
   });
 
   it("clicking todo", async () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
     await wrapper.get("input").setValue(msg);
     expect(wrapper.get("input").element.value).toBe(msg);
     await wrapper.get(".addTodo").trigger("click");
@@ -51,12 +43,18 @@ describe("HelloWorld.vue", () => {
   });
   //跑当前的
   it.only("clicking todo11", async () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
+    mockAxios.get.mockResolvedValueOnce({
+      data: { city: "123" },
     });
-    // mockAxios.get.mockResolvedValueOnce({
-    //   data: { city: "123" },
-    // });
+    await wrapper.get(".loadUser").trigger("click");
+    expect(mockAxios.get).toHaveBeenCalled();
+    expect(wrapper.find(".loading").exists()).toBeTruthy();
+    await flushPromises();
+    // 界面更新完毕
+    expect(wrapper.find(".loading").exists()).toBeFalsy();
+    expect(wrapper.get(".userName").text()).toBe("123");
+  });
+  afterEach(() => {
+    mockAxios.get.mockReset();
   });
 });

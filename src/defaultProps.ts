@@ -1,5 +1,5 @@
 import { mapValues, without } from "lodash-es";
-
+//初始化一些值的地方
 export interface CommonComponentProps {
   // actions
   actionType: string;
@@ -78,18 +78,33 @@ export const textDefaultProps = {
   backgroundColor: "",
   ...commonDefaultProps,
 };
+export interface ImageComponentProps extends CommonComponentProps {
+  src: string;
+}
+
+export const imageDefaultProps: ImageComponentProps = {
+  src: "test.url",
+  ...commonDefaultProps,
+};
 
 export const textStylePropNames = without(
+  //without创建一个剔除所有给定值的新数组 生成所有style的属性
   Object.keys(textDefaultProps),
   "actionType",
   "url",
   "text"
+);
+export const imageStylePropsNames = without(
+  Object.keys(imageDefaultProps),
+  "src"
 );
 
 export const transformToComponentProps = <T extends { [key: string]: any }>(
   props: T
 ) => {
   return mapValues(props, (item) => {
+    //mapValues创建一个对象，这个对象的key与object对象相同，值是通过 iteratee 运行 object 中每个自身可枚举属性名字符串产生的
+    //这里key和props一样，返回组件内部生成props的属性方法
     return {
       type: item.constructor,
       default: item,
