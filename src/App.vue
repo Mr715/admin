@@ -1,4 +1,5 @@
 <template>
+  <l-text text="1111111"></l-text>
   <router-view></router-view>
 </template>
 
@@ -7,7 +8,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "App",
-  components: {},
 });
 </script>
 
