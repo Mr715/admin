@@ -27,12 +27,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from "vue";
-import { reduce } from "lodash";
-import { PropsToForms, mapPropsToForms } from "../propsMap";
-import { TextComponentProps } from "../defaultProps";
+import { defineComponent, computed, PropType } from 'vue';
+import { reduce } from 'lodash';
+import { PropsToForms, mapPropsToForms } from '../propsMap';
+import { TextComponentProps } from '../defaultProps';
+import ImageProcesser from './ImageProcesser.vue';
 
-import ColorPicker from "./ColorPicker.vue";
+import ColorPicker from './ColorPicker.vue';
 
 interface FormProps {
   component: string;
@@ -47,16 +48,17 @@ interface FormProps {
 }
 
 export default defineComponent({
-  name: "props-table",
+  name: 'props-table',
   components: {
     ColorPicker,
+    ImageProcesser,
   },
   props: {
     props: Object as PropType<TextComponentProps>,
   },
-  emits: ["change"],
+  emits: ['change'],
   setup(props, context) {
-    console.log(props, "1111111");
+    console.log(props, '1111111');
     const finalProps = computed(() => {
       return reduce(
         //通过 iteratee 遍历 collection 中的每个元素,每次返回的值会作为下一次迭代的第一个参数使用,如果没有提供 accumulator,则
@@ -67,8 +69,8 @@ export default defineComponent({
           const item = mapPropsToForms[newKey];
           if (item) {
             const {
-              valueProp = "value",
-              eventName = "change",
+              valueProp = 'value',
+              eventName = 'change',
               initTransForm,
               afterTransform,
             } = item;
@@ -79,7 +81,7 @@ export default defineComponent({
               eventName,
               events: {
                 [eventName]: (e: any) => {
-                  context.emit("change", {
+                  context.emit('change', {
                     key,
                     value: afterTransform ? afterTransform(e) : e,
                   });

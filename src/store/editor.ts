@@ -1,7 +1,7 @@
-import { Module } from "vuex";
-import { v4 as uuidv4 } from "uuid";
-import { GlobalDataProps } from "@/store";
-import { TextComponentProps } from "@/defaultProps";
+import { Module } from 'vuex';
+import { v4 as uuidv4 } from 'uuid';
+import { GlobalDataProps } from '@/store';
+import { TextComponentProps } from '@/defaultProps';
 
 export interface EditorProps {
   components: ComponentsData[];
@@ -17,37 +17,37 @@ export interface ComponentsData {
 export const testComponents: ComponentsData[] = [
   {
     id: uuidv4(),
-    name: "l-text",
+    name: 'l-text',
     props: {
-      text: "hello",
-      fontSize: "20px",
+      text: 'hello',
+      fontSize: '20px',
       lineHeight: 1,
-      textAlign: "center",
-      color: "#00000",
+      textAlign: 'center',
+      color: '#00000',
     },
   },
   {
     id: uuidv4(),
-    name: "l-text",
+    name: 'l-text',
     props: {
-      text: "hello1",
-      fontSize: "15px",
+      text: 'hello1',
+      fontSize: '15px',
       lineHeight: 1,
-      actionType: "url",
-      textAlign: "right",
-      fontFamily: "",
+      actionType: 'url',
+      textAlign: 'right',
+      fontFamily: '',
     },
   },
   {
     id: uuidv4(),
-    name: "l-text",
+    name: 'l-text',
     props: {
-      text: "hello2",
-      fontSize: "10px",
+      text: 'hello2',
+      fontSize: '10px',
       lineHeight: 1,
-      fontWeight: "bold",
-      textAlign: "left",
-      fontFamily: "",
+      fontWeight: 'bold',
+      textAlign: 'left',
+      fontFamily: '',
     },
   },
 ];
@@ -55,7 +55,7 @@ export const testComponents: ComponentsData[] = [
 const editor: Module<EditorProps, GlobalDataProps> = {
   state: {
     components: testComponents,
-    currentElement: "",
+    currentElement: '',
   },
   mutations: {
     // addComponent(state, props) {

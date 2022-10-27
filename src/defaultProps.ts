@@ -1,4 +1,4 @@
-import { mapValues, without } from "lodash-es";
+import { mapValues, without } from 'lodash-es';
 //初始化一些值的地方
 export interface CommonComponentProps {
   // actions
@@ -28,28 +28,28 @@ export interface CommonComponentProps {
 
 export const commonDefaultProps = {
   // actions
-  actionType: "",
-  url: "",
+  actionType: '',
+  url: '',
   // size
-  height: "",
-  width: "373px",
-  paddingLeft: "0px",
-  paddingRight: "0px",
-  paddingTop: "0px",
-  paddingBottom: "0px",
+  height: '',
+  width: '373px',
+  paddingLeft: '0px',
+  paddingRight: '0px',
+  paddingTop: '0px',
+  paddingBottom: '0px',
   // border type
-  borderStyle: "none",
-  borderColor: "#000",
-  borderWidth: "0",
-  borderRadius: "0",
+  borderStyle: 'none',
+  borderColor: '#000',
+  borderWidth: '0',
+  borderRadius: '0',
   // shadow and opacity
-  boxShadow: "0 0 0 #000000",
-  opacity: "1",
+  boxShadow: '0 0 0 #000000',
+  opacity: '1',
   // position and x,y
-  position: "absolute",
-  left: "0",
-  top: "0",
-  right: "0",
+  position: 'absolute',
+  left: '0',
+  top: '0',
+  right: '0',
 };
 export interface TextComponentProps extends CommonComponentProps {
   text: string;
@@ -66,16 +66,16 @@ export interface TextComponentProps extends CommonComponentProps {
 
 export const textDefaultProps = {
   // basic props - font styles
-  text: "正文内容",
-  fontSize: "14px",
-  fontFamily: "",
-  fontWeight: "normal",
-  fontStyle: "normal",
-  textDecoration: "none",
-  lineHeight: "1",
-  textAlign: "left",
-  color: "#000000",
-  backgroundColor: "",
+  text: '正文内容',
+  fontSize: '14px',
+  fontFamily: '',
+  fontWeight: 'normal',
+  fontStyle: 'normal',
+  textDecoration: 'none',
+  lineHeight: '1',
+  textAlign: 'left',
+  color: '#000000',
+  backgroundColor: '',
   ...commonDefaultProps,
 };
 export interface ImageComponentProps extends CommonComponentProps {
@@ -83,20 +83,22 @@ export interface ImageComponentProps extends CommonComponentProps {
 }
 
 export const imageDefaultProps: ImageComponentProps = {
-  src: "test.url",
+  src: 'test.url',
   ...commonDefaultProps,
 };
+export declare type AllComponentProps = TextComponentProps &
+  ImageComponentProps;
 
 export const textStylePropNames = without(
   //without创建一个剔除所有给定值的新数组 生成所有style的属性
   Object.keys(textDefaultProps),
-  "actionType",
-  "url",
-  "text"
+  'actionType',
+  'url',
+  'text'
 );
 export const imageStylePropsNames = without(
   Object.keys(imageDefaultProps),
-  "src"
+  'src'
 );
 
 export const transformToComponentProps = <T extends { [key: string]: any }>(

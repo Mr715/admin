@@ -13,15 +13,19 @@
       <a-layout>
         <a-layout-content class="preview-container">
           <div>画布区域</div>
-          <edit-wrapper
-            @set-active="setActive"
-            v-for="list in elementLists"
-            :key="list.id"
-            :id="list.id"
-            :active="list.id == (currentElement && currentElement.id)"
-          >
-            <component :is="list.name" v-bind="list.props"></component>
-          </edit-wrapper>
+          <div class="preview-list">
+            <div class="body-container">
+              <edit-wrapper
+                @set-active="setActive"
+                v-for="list in elementLists"
+                :key="list.id"
+                :id="list.id"
+                :active="list.id == (currentElement && currentElement.id)"
+              >
+                <component :is="list.name" v-bind="list.props"></component>
+              </edit-wrapper>
+            </div>
+          </div>
         </a-layout-content>
       </a-layout>
       <a-layout-sider width="30%" style="background: white">
@@ -41,18 +45,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { useStore } from "vuex";
-import { GlobalDataProps } from "../store/index";
-import LText from "../components/LText.vue";
-import LImage from "../components/LImage.vue";
-import { defaultTextTemplates } from "@/defaultTemplates";
-import ComponentsList from "../components/ComponentsList.vue";
-import EditWrapper from "../components/EditorWrapper.vue";
-import PropsTable from "@/components/PropsTable.vue";
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
+import { GlobalDataProps } from '../store/index';
+import LText from '../components/LText.vue';
+import LImage from '../components/LImage.vue';
+import { defaultTextTemplates } from '@/defaultTemplates';
+import ComponentsList from '../components/ComponentsList.vue';
+import EditWrapper from '../components/EditorWrapper.vue';
+import PropsTable from '@/components/PropsTable.vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     LText,
     ComponentsList,
@@ -66,14 +70,14 @@ export default defineComponent({
     const elementLists = computed(() => store.state.editor.components);
     const currentElement = computed(() => store.getters.getCurrentElement);
     const addItem = (props: any) => {
-      store.commit("addComponent", props);
+      store.commit('addComponent', props);
     };
     const setActive = (id: any) => {
-      store.commit("setActive", id);
+      store.commit('setActive', id);
     };
     const handleChange = (e: any) => {
-      console.log("event", e);
-      store.commit("updateComponent", e);
+      console.log('event', e);
+      store.commit('updateComponent', e);
     };
     return {
       elementLists,

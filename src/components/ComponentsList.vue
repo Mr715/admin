@@ -13,15 +13,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import LText from "../components/LText.vue";
-import { v4 as uuidv4 } from "uuid";
-import { message } from "ant-design-vue";
-import { ComponentsData } from "../store/editor";
-import { UploadResp } from "../extraType";
-import StyledUploader from "../components/StyledUploader.vue";
-import { imageDefaultProps } from "@/defaultProps";
-import { getImageDimensions } from "@/helper";
+import { defineComponent } from 'vue';
+import LText from '../components/LText.vue';
+import { v4 as uuidv4 } from 'uuid';
+import { message } from 'ant-design-vue';
+import { ComponentsData } from '../store/editor';
+import { UploadResp } from '../extraType';
+import StyledUploader from '../components/StyledUploader.vue';
+import { TextComponentProps } from '@/defaultProps';
+import { imageDefaultProps } from '@/defaultProps';
+import { getImageDimensions } from '@/helper';
 
 export default defineComponent({
   props: {
@@ -30,63 +31,44 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["on-item-click"],
-  name: "components-list",
+  emits: ['on-item-click'],
+  name: 'components-list',
   components: {
     LText,
     StyledUploader,
   },
   setup(props, context) {
-    const onItemClick = (data: ComponentsData) => {
+    const onItemClick = (data: TextComponentProps) => {
       const componentData: ComponentsData = {
-        name: "l-text",
+        name: 'l-text',
         id: uuidv4(),
-        props,
+        props: Object.assign({}, data),
       };
-      context.emit("on-item-click", componentData);
+      context.emit('on-item-click', componentData);
     };
-
-    // const onImageUploaded = (data: { resp: UploadResp; file: File }) => {
-    //   const { resp, file } = data;
-    //   const componentData: ComponentData = {
-    //     name: "l-image",
-    //     id: uuidv4(),
-    //     props: {
-    //       ...imageDefaultProps,
-    //     },
-    //   };
-    //   message.success("上传成功");
-    //   componentData.props.src = resp.data.url;
-    //   getImageDimensions(file).then(({ width }) => {
-    //     const maxWidth = 373;
-    //     componentData.props.width =
-    //       (width > maxWidth ? maxWidth : width) + "px";
-    //     context.emit("on-item-click", componentData);
-    //   });
-    // };
 
     const onImageUploaded = (data: { resp: UploadResp; file: File }) => {
       const { resp, file } = data;
       const componentData: ComponentsData = {
-        name: "l-image",
+        name: 'l-image',
         id: uuidv4(),
         props: {
           ...imageDefaultProps,
         },
       };
-      message.success("上传成功");
+      message.success('上传成功');
       console.log(data);
       // componentData.props.src = resp.data.url;
 
       componentData.props.src =
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Flmg.jj20.com%2Fup%2Fallimg%2F1114%2F121420113514%2F201214113514-6-1200.jpg&refer=http%3A%2F%2Flmg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1668841581&t=a103d730362e6865d211ee1a52327ad7";
+        'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f3e3a17c305b1070f455202.jpg';
 
       getImageDimensions(file).then(({ width }) => {
         console.log(width);
         const maxWidth = 373;
         componentData.props.width =
-          (width > maxWidth ? maxWidth : width) + "px";
-        context.emit("on-item-click", componentData);
+          (width > maxWidth ? maxWidth : width) + 'px';
+        context.emit('on-item-click', componentData);
       });
     };
 

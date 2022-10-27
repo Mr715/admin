@@ -8,7 +8,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
@@ -21,10 +21,10 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ["set-active"],
+  emits: ['set-active'],
   setup(props, context) {
     const onItemClick = (id: string) => {
-      context.emit("set-active", id);
+      context.emit('set-active', id);
     };
     return {
       onItemClick,
@@ -48,6 +48,6 @@ export default defineComponent({
 .edit-wrapper.active {
   border: 1px solid #1890ff;
   user-select: none;
-  z-index: 1500;
+  z-index: 999;
 }
 </style>
