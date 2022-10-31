@@ -58,7 +58,6 @@ export default defineComponent({
   },
   emits: ['change'],
   setup(props, context) {
-    console.log(props, '1111111');
     const finalProps = computed(() => {
       return reduce(
         //通过 iteratee 遍历 collection 中的每个元素,每次返回的值会作为下一次迭代的第一个参数使用,如果没有提供 accumulator,则

@@ -13,13 +13,16 @@
       <a-layout>
         <a-layout-content class="preview-container">
           <div>画布区域</div>
-          <div class="preview-list">
+          <history-area></history-area>
+          <div class="preview-list" id="canvas-area">
             <div class="body-container">
               <edit-wrapper
                 @set-active="setActive"
+                @update-position="updatePosition"
                 v-for="list in elementLists"
                 :key="list.id"
                 :id="list.id"
+                :props="list.props"
                 :active="list.id == (currentElement && currentElement.id)"
               >
                 <component :is="list.name" v-bind="list.props"></component>
@@ -47,13 +50,16 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
+import initHotKeys from '../plugins/hotKeys'
+import { pickBy, forEach } from 'lodash-es'
 import { GlobalDataProps } from '../store/index';
 import LText from '../components/LText.vue';
 import LImage from '../components/LImage.vue';
-import { defaultTextTemplates } from '@/defaultTemplates';
+import defaultTextTemplates from '@/defaultTemplates';
 import ComponentsList from '../components/ComponentsList.vue';
 import EditWrapper from '../components/EditorWrapper.vue';
 import PropsTable from '@/components/PropsTable.vue';
+import HistoryArea from './editor/HistoryArea.vue'
 
 export default defineComponent({
   name: 'App',
@@ -62,9 +68,11 @@ export default defineComponent({
     ComponentsList,
     EditWrapper,
     PropsTable,
+    HistoryArea,
     LImage,
   },
   setup() {
+    initHotKeys();
     const store = useStore<GlobalDataProps>();
 
     const elementLists = computed(() => store.state.editor.components);
@@ -79,6 +87,13 @@ export default defineComponent({
       console.log('event', e);
       store.commit('updateComponent', e);
     };
+    const updatePosition = (data: { left: number; top: number; id: string }) => {
+      const { id } = data
+      const updatedData = pickBy<number>(data, (v, k) => k !== 'id')   //去除ID之后的对象
+      const keysArr = Object.keys(updatedData)
+      const valuesArr = Object.values(updatedData).map(v => v + 'px')
+      store.commit('updateComponent', { key: keysArr, value: valuesArr, id })
+    }
     return {
       elementLists,
       defaultTextTemplates,
@@ -86,6 +101,7 @@ export default defineComponent({
       setActive,
       currentElement,
       handleChange,
+      updatePosition,
     };
   },
 });
@@ -105,7 +121,7 @@ export default defineComponent({
   padding: 0;
   margin: 0;
   min-width: 375px;
-  min-height: 200px;
+  min-height: 800px;
   border: 1px solid #efefef;
   background: #fff;
   overflow-x: hidden;
