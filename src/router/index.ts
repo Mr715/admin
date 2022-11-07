@@ -4,7 +4,12 @@ import Edit from "../views/Edit.vue";
 
 const routes = [
   { path: "/", name: "home", component: Home, meta: { withHeader: true } },
-  { path: "/edit", name: "edit", component: Edit },
+
+  { path: "/edit",
+   name: "edit",
+  //  component:Edit,
+   component: () => import(/* webpackChunkName: "editor" */ '../views/Edit.vue'),
+   },
 ];
 
 const router = createRouter({

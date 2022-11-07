@@ -59,6 +59,7 @@ import defaultTextTemplates from '@/defaultTemplates';
 import ComponentsList from '../components/ComponentsList.vue';
 import EditWrapper from '../components/EditorWrapper.vue';
 import PropsTable from '@/components/PropsTable.vue';
+import initContextMenu from '../plugins/contextMenu'
 import HistoryArea from './editor/HistoryArea.vue'
 
 export default defineComponent({
@@ -73,6 +74,7 @@ export default defineComponent({
   },
   setup() {
     initHotKeys();
+    initContextMenu();
     const store = useStore<GlobalDataProps>();
 
     const elementLists = computed(() => store.state.editor.components);

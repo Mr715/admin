@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue';
-import { reduce } from 'lodash';
+import { reduce } from 'lodash-es';
 import { PropsToForms, mapPropsToForms } from '../propsMap';
 import { TextComponentProps } from '../defaultProps';
 import ImageProcesser from './ImageProcesser.vue';
