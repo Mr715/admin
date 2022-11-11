@@ -8,7 +8,7 @@ const isAnalyzeMode = !!process.env.ANALYZE_MODE
 module.exports = {
   // 生产环境要使用 OSS 地址
   // 其他环境都使用绝对路径
-  publicPath: (isProduction && !isStaging) ? 'https://oss.imooc-lego.com/editor' : '/',
+  publicPath: (isProduction && !isStaging) ? 'https://wwww.baidu.com' : '/',
   css: {
     loaderOptions: {
       less: {
@@ -64,8 +64,8 @@ module.exports = {
   },
   chainWebpack: config => {
     config.plugin('html').tap(args => {
-      args[0].title = '慕课乐高'
-      args[0].desc = '一键生成 H5 海报'
+      args[0].title = '低代码'
+      args[0].desc = '生成H5'
       return args
     })
   }

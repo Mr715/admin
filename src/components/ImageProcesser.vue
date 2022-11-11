@@ -101,7 +101,6 @@ export default defineComponent({
           baseImageUrl.value +
           `?x-oss-process=image/crop,x_${x},y_${y},w_${width},h_${height}`;
         // 不使用 阿里云 OSS，拿到截图图片再次上传的处理方法
-        // 这里实现还是采用原方法，假如同学们愿意使用重新上传的方法的话，请看下面注释的代码
         // cropper.getCroppedCanvas().toBlob((blob) => {
         //   if (blob) {
         //     const formData = new FormData()
